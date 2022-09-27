@@ -29,8 +29,8 @@ export default createStore({
   },
   actions: {
       // 获取首页文章
-      getPassage:async function(context){
-        let res = await reqGetPassage();
+      getPassage:async function(context,data){
+        let res = await reqGetPassage(data);
         if(res){
           context.commit("GETPASSAGE",res.data.message);
         }else{

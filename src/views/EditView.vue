@@ -120,7 +120,7 @@ export default {
     upLeixing() {
       let checkElement = document.getElementsByName("hello");
       for (let i = 0; i < checkElement.length; i++) {
-        if (checkElement[i].value == this.type) {
+        if (checkElement[i].value == this.editPassage.type) {
           checkElement[i].checked = "true";
         }
       }

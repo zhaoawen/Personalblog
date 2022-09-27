@@ -5,7 +5,8 @@ var path = require('path');// 路径 （框架生成）
 var cookieParser = require('cookie-parser');// cookie （框架生成）
 var logger = require('morgan');// 日志 （框架生成）
 const cors = require("cors")
-
+// 引入websoket
+const Ws = require("ws");
 const Joi = require('joi')
 const expressJoi = require('@escook/express-joi')
 const expressJWT = require('express-jwt')
@@ -98,6 +99,50 @@ app.use(function(err, req, res, next) {
 //   if(err instanceof joi.ValidationError) return res.cc(err)
 //   res.cc(err)
 // })
+
+// 配置websoket，实现一个聊天室
+((Ws) => {
+  // ws:localhost:8000
+  const server = new Ws.Server({ port: 8000 });
+
+  const init = () => {
+    bindEvent();
+  };
+
+  function bindEvent() {
+    server.on("open", handleOpen);
+    server.on("close", handleClose);
+    server.on("error", handleError);
+    server.on("connection", handleConnection);
+  }
+
+  function handleOpen() {
+    console.log("Websocket open");
+  }
+  function handleClose() {
+    console.log("Websocket close");
+  }
+  function handleError() {
+    console.log("Websocket error");
+  }
+  function handleConnection(ws) {
+    console.log("Websocket connected");
+    ws.on("message", handleMessage);
+  }
+  function handleMessage(msg) {
+    // 接受前端发送过来的message
+    msg = msg.toString("utf-8");
+    console.log("msg---", msg);
+
+    // 把消息广播出去，凡是连接这个websocket地址的都能收到
+    server.clients.forEach((c) => {
+      c.send(msg);
+    });
+  }
+  init();
+})(Ws);
+
+
 module.exports = app;
 app.listen(3007,()=>{
   console.log("api server running at http://127.0.0.1:3007");

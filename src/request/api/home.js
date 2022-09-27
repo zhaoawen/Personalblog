@@ -1,8 +1,8 @@
 import requests from "..";
 // 获取首页的文章内容
-export const reqGetPassage = ()=>{
+export const reqGetPassage = (data)=>{
     // 发请求:返回的是Promise对象
-    return requests({ method:'get',url:'/zw'});
+    return requests({ method:'get',url:`/${data.uname}`,data});
 }
 
 // 在首页对文章进行点赞

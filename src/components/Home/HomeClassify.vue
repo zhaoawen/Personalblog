@@ -48,7 +48,7 @@
     <br />
     <div class="remen">
       <div style="font-weight: bold">用户：</div>
-      <div id="name">abc</div>
+      <div id="name">{{name}}</div>
       <div style="font-weight: bold">热门文章</div>
       <div id="hot"></div>
     </div>
@@ -93,6 +93,7 @@
 
 <script>
 import {
+  reqGetPassage,
   reqGetPassageGreat,
   reqGetPassageDelGreat,
   reqGetPassageDelCol,
@@ -123,9 +124,13 @@ export default {
         this.$store.state.showList = newValue;
       },
     },
+    name(){
+      return this.tx();
+    }
   },
   mounted() {
-    this.$store.dispatch("getPassage");
+    let data = {uname:this.tx()};
+    this.$store.dispatch("getPassage",data);
     this.tx();
     this.hot();
     this.keyDown();
@@ -138,6 +143,7 @@ export default {
       let n1 = loc.length;
       let n2 = loc.lastIndexOf("/");
       this.txt = decodeURI(loc.substr(n2 + 1, n1 - n2));
+      return this.txt;
     },
     // 初始化点赞和收藏
     begin(item, index) {

@@ -3,6 +3,30 @@ import HomeView from '../views/HomeView.vue'
 
 const routes = [
   {
+    path: '/chalk',
+    name: 'chalk',
+    // route level code-splitting
+    // this generates a separate chunk (chalk.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () => import(/* webpackChunkName: "chalk" */ '../views/ChalkView.vue')
+  },
+  {
+    path: '/user/login',
+    name: 'login',
+    // route level code-splitting
+    // this generates a separate chunk (login.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () => import(/* webpackChunkName: "login" */ '../views/LoginView.vue')
+  },
+  {
+    path: '/user/register',
+    name: 'register',
+    // route level code-splitting
+    // this generates a separate chunk (register.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () => import(/* webpackChunkName: "register" */ '../views/RegisterView.vue')
+  },
+  {
     path: '/:name',
     name: 'home',
     component: HomeView
@@ -30,22 +54,6 @@ const routes = [
     // which is lazy-loaded when the route is visited.
     component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
   },
-  {
-    path: '/user/login',
-    name: 'login',
-    // route level code-splitting
-    // this generates a separate chunk (login.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "login" */ '../views/LoginView.vue')
-  },
-  {
-    path: '/user/register',
-    name: 'register',
-    // route level code-splitting
-    // this generates a separate chunk (register.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "register" */ '../views/RegisterView.vue')
-  }
 ]
 
 const router = createRouter({

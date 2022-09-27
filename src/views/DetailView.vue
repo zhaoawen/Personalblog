@@ -5,8 +5,8 @@
       <div id="title">{{ currentPassage.name }}</div>
       <div id="content">{{ currentPassage.content }}</div>
       <input id="zan" type="button" value="点赞" @click="great()" />
-      <input type="button" value="编辑" id="edit" @click="edit()"/>
-      <input type="button" name="" id="del" value="删除" @click="del()" />
+      <input v-if="this.uname=='zw'" type="button" value="编辑" id="edit" @click="edit()"/>
+      <input  v-if="this.uname=='zw'" type="button" name="" id="del" value="删除" @click="del()" />
     </div>
     <div class="box2">
       <div class="box21">
@@ -172,28 +172,30 @@ export default {
         if (text.trim() == "") {
           alert("你的评论为空啊！~");
         } else {
-          var div = document.createElement("div");
-          div.className += "  quto";
-          div.innerHTML =
-            `<span class="xian"></span>
-                                     <span class="name">` +
-            this.uname +
-            `</span>:
-                                     <span class="comment">` +
-            text +
-            `</span>`;
-          div.firstElementChild.style.backgroundColor = this.randomColor();
-          // 插入到首评论前面
-          comm.insertBefore(div, quto);
-        }
-
-        let data = {
+          let data = {
           utxt: this.txt,
           uname: this.uname,
           insert: "[" + this.uname + ",'" + text + "']",
         };
         let res = await reqDetailPinglun(data);
         document.getElementById("text").value = null;
+        let str =   `${this.uname},'${text}'`;
+        this.comments.unshift(str);
+          // var div = document.createElement("div");
+          // div.className += "quto";
+          // div.innerHTML =
+          //   `<span class="xian"
+          //   ></span>
+          //   <span class="name">` +
+          //   this.uname +
+          //   `</span>:
+          //   <span class="comment">` +
+          //   text +
+          //   `</span>`;
+          // div.firstElementChild.style.backgroundColor = this.randomColor();
+          // // 插入到首评论前面
+          // comm.insertBefore(div, quto);
+        }
       }
     },
     // 进入编辑页面
@@ -298,16 +300,6 @@ export default {
   margin: 20px 30px;
   text-align: left;
 }
-/* .xian{
-            display: inline-block;
-            width: 5px;
-            height: 30px;
-            position: relative;
-            left: 8px;
-            top: 8px;
-            background-color: black;
-            margin-right: 10px;
-        } */
 .blank {
   height: 10px;
 }

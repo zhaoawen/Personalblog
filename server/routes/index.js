@@ -56,15 +56,15 @@ router.post('/:name/delzan',require("../controller/index").delzan);
 
 router.post('/:name/:passage',require("../controller/index").detail);
 
-router.post('/:name/:passage',function(req,res,next){
-    if(req.params.passage=='register'){
-      require("../controller/users").register;
-    }
-    if(req.params.passage=='login'){
-      require("../controller/users").login;
-    } 
-  require("../controller/index").detail;
-})
+// router.post('/:name/:passage',function(req,res,next){
+//     if(req.params.passage=='register'){
+//       require("../controller/users").register;
+//     }
+//     if(req.params.passage=='login'){
+//       require("../controller/users").login;
+//     } 
+//   require("../controller/index").detail;
+// })
 router.post('/:name/:passage/chakan',require("../controller/index").chakan);
 router.post('/:name/:passage/dianzan2',require("../controller/index").dianzan2);
 router.post('/:name/:passage/pinglun',require("../controller/index").pinglun);

@@ -19,7 +19,8 @@
           v-model="userpwd"
         />
         <span class="iconfont icon-yanjing" style="display: inline-block" @click="zhengyan()"></span
-        ><span class="iconfont icon-yanjing1" style="display: none" @click="biyan()"></span>
+        >
+        <span class="iconfont icon-yanjing1" style="display: none" @click="biyan()"></span>
         <span id="key-warn"></span>
 
         <input type="text" id="yanzhengma" placeholder="请输入验证码" v-model="yzm"/>
@@ -31,7 +32,7 @@
           title="点击更换验证码"
         ></canvas>
         <input type="submit" value="登录" id="login-btn" @click="login" /><br />
-        <input type="button" value="注册系统" id="zhuce" />
+        <input type="button" value="注册系统" id="zhuce" @click="$router.push('/users/register')"/>
         <!-- <input type="checkbox" name="" id="mianmi" value="" >
                 <span class="wenzi" style="font-size: 14px;">七天免密登录</span> -->
       </form>
@@ -126,10 +127,13 @@ export default {
                 return ;
         }else{
             let res = await reqLoginUser(data);
+            console.log(res);
             if (res) {
                 alert("登录成功！");
-                this.$router.push("/`encodeURI(res.data)`");
-                // this.$router.push("/zw");
+                res=res.data.data;
+                let str = encodeURI(res);
+                localStorage.setItem("username",str);
+                this.$router.push("/"+str);
             } else {
                 alert("密码错误！");
             }
@@ -139,6 +143,7 @@ export default {
     zhengyan() {
       var yanjing1 = document.getElementsByClassName("icon-yanjing")[0];
       var yanjing = document.getElementsByClassName("icon-yanjing1")[0];
+      let oKey = document.getElementById("login-key");
       if (yanjing1.style.display == "inline-block") {
         yanjing1.style.display = "none";
         yanjing.style.display = "inline-block";
@@ -148,6 +153,7 @@ export default {
     biyan() {
       var yanjing1 = document.getElementsByClassName("icon-yanjing")[0];
       var yanjing = document.getElementsByClassName("icon-yanjing1")[0];
+      let oKey = document.getElementById("login-key");
       yanjing.addEventListener("click", function () {
         if (yanjing1.style.display == "none") {
           yanjing1.style.display = "inline-block";

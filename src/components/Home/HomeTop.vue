@@ -6,6 +6,7 @@
         <a href="http://127.0.0.1:3007/users/login">Admin_Login</a>
       </li>
       <li id="users"><a @click="Users_Login()">Users_Login</a></li>
+      <li id="chalk"><a @click="Login_Chalk()">Login_Chalk</a></li>
       <li id="Register">
         <a href="http://127.0.0.1:3007/users/register">Register</a>
       </li>
@@ -67,6 +68,9 @@ export default {
     Users_Login() {
       let str = "/" + this.txt + "/man";
       this.$router.push(str);
+    },
+    Login_Chalk() {
+      this.$router.push('/chalk');
     },
     // 动画
     littlesnow() {
